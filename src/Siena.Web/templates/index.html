@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+  <title>Hello from Flask</title>
+</head>
+<body>
+  <div>
+    <input
+      type="text"
+      id="debug"
+      style="background-color: red; width: 100%; font-size: 40px"
+    />
+  </div>
+  <h2>Acceleration</h2>
+  <div>
+    <input
+      type="text"
+      id="orientationX"
+      style="background-color: tan; width: 100%; font-size: 40px"
+    />
+  </div>
+  <div>
+    <input
+      type="text"
+      id="orientationY"
+      style="background-color:blanchedalmond; width: 100%; font-size: 40px"
+    />
+  </div>
+  <div>
+    <input
+      type="text"
+      id="orientationZ"
+      style="background-color:skyblue; width: 100%; font-size: 40px"
+    />
+  </div>
+  <h2>Gravity</h2>
+  <div>
+    <input
+      type="text"
+      id="gravityX"
+      style="background-color: tan; width: 100%; font-size: 40px"
+    />
+  </div>
+  <div>
+    <input
+      type="text"
+      id="gravityY"
+      style="background-color:blanchedalmond; width: 100%; font-size: 40px"
+    />
+  </div>
+  <div>
+    <input
+      type="text"
+      id="gravityZ"
+      style="background-color:skyblue; width: 100%; font-size: 40px"
+    />
+  </div>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
