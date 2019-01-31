@@ -35,10 +35,11 @@ function tilt(acceleration, gravity) {
 
   if (totalAcceleration > 9.0) {
     debugInput.value = "Start Recognizing for 120 seconds";
-    annyang.resume();
+
+    startArtyom();
 
     window.setTimeout(function() {
-      annyang.pause();
+      stopArtyom();
       debugInput.value = "Recognize stopped.";
     }, 120000);
   }
@@ -59,21 +60,35 @@ window.addEventListener(
   true
 );
 
-var annyang = window.annyang;
-console.re.log(annyang);
+const artyom = new Artyom();
 
 var commands = {
-  "hilfe (bitte)": function() {
+  indexes: ["hilfe"], // These spoken words will trigger the execution of the command
+  action: function() {
+    // Action to be executed when a index match with spoken word
     callHelp();
   }
 };
 
-annyang.addCommands(commands);
-annyang.setLanguage("de-DE");
-annyang.debug();
-annyang.start();
+artyom.addCommands(commands);
+
+var startArtyom = function() {
+  artyom.initialize({
+    lang: "de-DE",
+    debug: true, // Show what recognizes in the Console
+    listen: true, // Start listening after this
+    speed: 1, // Talk a little bit slow
+    mode: "normal" // This parameter is not required as it will be normal by default
+  });
+};
+
+var stopArtyom = function() {
+  artyom.fatality();
+};
 
 var callHelp = function() {
+  artyom.say("Geht es dir gut?");
+
   const xhr = new XMLHttpRequest();
   const url = "/api/falldetect";
   xhr.open("POST", url, true);
@@ -82,3 +97,6 @@ var callHelp = function() {
 
   debugInput.value = "Help requested";
 };
+
+startArtyom();
+stopArtyom();
