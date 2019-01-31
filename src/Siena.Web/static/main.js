@@ -81,7 +81,9 @@ var commands = [
   {
     indexes: ["ja", "alles ok"],
     action: function() {
+      isCalled = false;
       artyom.say("Dann bin ich beruhigt.");
+      debugInput.value = "Everything is fine";
     }
   }
 ];
