@@ -1,4 +1,5 @@
 var currentmax = 0;
+var debugInput = document.getElementById("debug");
 
 function tilt(acceleration, gravity) {
   var xacc = acceleration[0];
@@ -30,27 +31,18 @@ function tilt(acceleration, gravity) {
 
   if (totalAcceleration > currentmax) {
     currentmax = totalAcceleration;
-    // document.getElementById("debug").value = currentmax;
   }
 
   if (totalAcceleration > 9.0) {
-    // document.getElementById("FALL").value = totalAcceleration;
+    debugInput.value = "Start Recognizing for 120 seconds";
+    annyang.resume();
 
-    const xhr = new XMLHttpRequest();
-    const url = "/api/falldetect";
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    xhr.onreadystatechange = function() {
-      // Call a function when the state changes.
-      document.getElementById("debug").value = this.readyState;
-    };
-
-    xhr.send(JSON.stringify(totalAcceleration));
+    window.setTimeout(function() {
+      annyang.pause();
+      debugInput.value = "Recognize stopped.";
+    }, 120000);
   }
 }
-
-var debug = document.getElementById("debug");
 
 window.addEventListener(
   "devicemotion",
@@ -66,3 +58,27 @@ window.addEventListener(
   },
   true
 );
+
+var annyang = window.annyang;
+console.re.log(annyang);
+
+var commands = {
+  "hilfe (bitte)": function() {
+    callHelp();
+  }
+};
+
+annyang.addCommands(commands);
+annyang.setLanguage("de-DE");
+annyang.debug();
+annyang.start();
+
+var callHelp = function() {
+  const xhr = new XMLHttpRequest();
+  const url = "/api/falldetect";
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send(JSON.stringify("Help requested"));
+
+  debugInput.value = "Help requested";
+};
