@@ -104,3 +104,6 @@ var callHelp = function() {
 
   isCalled = false;
 };
+
+startArtyom();
+stopArtyom();
