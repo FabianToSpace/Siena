@@ -1,6 +1,8 @@
 var currentmax = 0;
 var debugInput = document.getElementById("debug");
 
+var isCalled = false;
+
 function tilt(acceleration, gravity) {
   var xacc = acceleration[0];
   var yacc = acceleration[1];
@@ -35,12 +37,15 @@ function tilt(acceleration, gravity) {
 
   if (totalAcceleration > 9.0) {
     debugInput.value = "Start Recognizing for 120 seconds";
-
-    startArtyom();
+    if (!isCalled) {
+      startArtyom();
+      isCalled = true;
+    }
 
     window.setTimeout(function() {
       stopArtyom();
       debugInput.value = "Recognize stopped.";
+      isCalled = false;
     }, 120000);
   }
 }
@@ -96,7 +101,6 @@ var callHelp = function() {
   xhr.send(JSON.stringify("Help requested"));
 
   debugInput.value = "Help requested";
-};
 
-startArtyom();
-stopArtyom();
+  isCalled = false;
+};
