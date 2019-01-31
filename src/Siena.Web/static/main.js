@@ -38,6 +38,7 @@ function tilt(acceleration, gravity) {
   if (totalAcceleration > 9.0) {
     debugInput.value = "Start Recognizing for 120 seconds";
     if (!isCalled) {
+      artyom.say("Hallo. Geht es dir gut?");
       startArtyom();
       isCalled = true;
     }
@@ -68,7 +69,7 @@ window.addEventListener(
 const artyom = new Artyom();
 
 var commands = {
-  indexes: ["hilfe"], // These spoken words will trigger the execution of the command
+  indexes: ["hilfe", "nein", "aua", "ah"], // These spoken words will trigger the execution of the command
   action: function() {
     // Action to be executed when a index match with spoken word
     callHelp();
@@ -92,8 +93,6 @@ var stopArtyom = function() {
 };
 
 var callHelp = function() {
-  artyom.say("Geht es dir gut?");
-
   const xhr = new XMLHttpRequest();
   const url = "/api/falldetect";
   xhr.open("POST", url, true);
