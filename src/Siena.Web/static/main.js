@@ -115,7 +115,9 @@ var callHelp = function() {
 
   debugInput.value = "Help requested";
 
-  isCalled = false;
+  window.setTimeout(function() {
+    isCalled = false;
+  }, 2000);
 };
 
 startArtyom();
